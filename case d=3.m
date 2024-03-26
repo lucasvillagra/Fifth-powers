@@ -25,7 +25,7 @@ end function;
 function eliminate_newforms(k2, k5, k7 : Bound := 100, Newfs := [])
 	/*
 	INPUT:
-		- ``k`` : 1,2,5 or 10.
+		- ``kq`` : 1 or q
 		- ``Bound`` : an upper bound of the primes we use in the elimination step
 		- ``Newfs`` : a list of new forms
 
