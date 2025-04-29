@@ -37,12 +37,12 @@ function eliminate_newforms(k2, k5, k7 : Bound := 100, Newfs := [])
 	// We compute the newforms if they are not given
 
 
-    if #Newfs eq 0 then
-        if k2 eq 1 then
-           	Newfs := Hilbert_newforms(Numerator(2^5 * 5^2/k5 * k7 * 13));
-        elif k2 eq 2 then
-            Newfs := Hilbert_newforms(Numerator(2 * 5^2/k5 * k7 * 13));
-        end if;
+	if #Newfs eq 0 then
+        	if k2 eq 1 then
+           		Newfs := Hilbert_newforms(Numerator(2^5 * 5^2/k5 * k7 * 13));
+        	elif k2 eq 2 then
+            		Newfs := Hilbert_newforms(Numerator(2 * 5^2/k5 * k7 * 13));
+        	end if;
 	end if; 
 
 
@@ -51,33 +51,27 @@ function eliminate_newforms(k2, k5, k7 : Bound := 100, Newfs := [])
 
 	num := 0;	
 	tHil := MakeType("ModFrmHil");
-    Bfnews:=[];
+    	Bfnews:=[];
 	for fnew in Newfs do
-   
-			for q in PrimesInInterval(1,Bound) do
-                if q notin [2,3,5,7,13] then
-				
-				    if Type(fnew) eq tHil then
-                        ZZ := RingOfIntegers(BaseField(fnew));
-					    aqfnew := HeckeEigenvalue(Eigenform(fnew),q*ZZ);
-				    else
-					    aqfnew := Coefficient(fnew[1],q);
-				    end if;
-				    prod := q * Norm((aqfnew^2 - (q+1)^2));
+   		for q in PrimesInInterval(1,Bound) do
+                	if q notin [2,3,5,7,13] then
+				if Type(fnew) eq tHil then
+                        		ZZ := RingOfIntegers(BaseField(fnew));
+					aqfnew := HeckeEigenvalue(Eigenform(fnew),q*ZZ);
+				else
+					aqfnew := Coefficient(fnew[1],q);
+				end if;
+				prod := q * Norm((aqfnew^2 - (q+1)^2));
+			        for r in [0..Floor(Sqrt(q))] do
+					prod *:= Norm((4*r^2 - aqfnew^2));
+				end for;
+				Append(~Bfnews,Integers()!prod);
+                    		g := GCD(Bfnews);
+                     	end if;		
+		end for;
 
-				    for r in [0..Floor(Sqrt(q))] do
-					    prod *:= Norm((4*r^2 - aqfnew^2));
-				    end for;
-
-				    Append(~Bfnews,Integers()!prod);
-                    g := GCD(Bfnews);
-                    
-                end if;		
-			end for;
-
-
-            if k7 eq 1 then
-		        if Type(fnew) eq tHil then
+		if k7 eq 1 then
+			if Type(fnew) eq tHil then
 			        ZZ := RingOfIntegers(BaseField(fnew));
 			        a7fnew := HeckeEigenvalue(Eigenform(fnew),7*ZZ);
 		        else
@@ -86,15 +80,15 @@ function eliminate_newforms(k2, k5, k7 : Bound := 100, Newfs := [])
 
 		        Append(~Bfnews,Integers()!(Norm(a7fnew^2 - 64)));
 
-            end if;
+            	end if;
 
-    g := GCD(Bfnews);
-			if g ne 0 then
-                print(PrimeFactors(g));
-			else
-				print "We have a zero";
-			end if;
-end for;
+    		g := GCD(Bfnews);
+		if g ne 0 then
+                	print(PrimeFactors(g));
+		else
+			print "We have a zero";
+		end if;
+	end for;
 return 0;
 
 end function;
