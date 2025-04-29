@@ -34,55 +34,51 @@ function eliminate_newforms(k2 : Bound := 100, Newfs := [])
 	*/
 
 
-	// We compute the newforms if they are not given
+    // We compute the newforms if they are not given
 
 
-    if #Newfs eq 0 then
-        if k2 eq 1 then
-           	Newfs := Hilbert_newforms(2^8 * 3 * 5 * 11 * 17);
-        elif k2 eq 2 then
-            Newfs := Hilbert_newforms(3 * 5 * 11 * 17);
-        end if;
+	if #Newfs eq 0 then
+        	if k2 eq 1 then
+           		Newfs := Hilbert_newforms(2^8 * 3 * 5 * 11 * 17);
+        	elif k2 eq 2 then
+        	Newfs := Hilbert_newforms(3 * 5 * 11 * 17);
+        	end if;
 	end if; 
-
 
 	// We apply Proposition 2.1
 
 
 	num := 0;	
 	tHil := MakeType("ModFrmHil");
-    Bfnews:=[];
+    	Bfnews:=[];
 	for fnew in Newfs do
-   
-			for q in PrimesInInterval(1,Bound) do
-                if q notin [2,3,5,7,13] then
-				
-				    if Type(fnew) eq tHil then
-                        ZZ := RingOfIntegers(BaseField(fnew));
-					    aqfnew := HeckeEigenvalue(Eigenform(fnew),q*ZZ);
-				    else
-					    aqfnew := Coefficient(fnew[1],q);
-				    end if;
-				    prod := q * Norm((aqfnew^2 - (q+1)^2));
+   		for q in PrimesInInterval(1,Bound) do
+                	if q notin [2,3,5,7,13] then
+				if Type(fnew) eq tHil then
+                        		ZZ := RingOfIntegers(BaseField(fnew));
+					aqfnew := HeckeEigenvalue(Eigenform(fnew),q*ZZ);
+				else
+					aqfnew := Coefficient(fnew[1],q);
+				end if;
+				prod := q * Norm((aqfnew^2 - (q+1)^2));
 
-				    for r in [0..Floor(Sqrt(q))] do
-					    prod *:= Norm((4*r^2 - aqfnew^2));
-				    end for;
+				for r in [0..Floor(Sqrt(q))] do
+					prod *:= Norm((4*r^2 - aqfnew^2));
+				end for;
 
-				    Append(~Bfnews,Integers()!prod);
-                    g := GCD(Bfnews);
+				Append(~Bfnews,Integers()!prod);
+                    		g := GCD(Bfnews);
                     
-                end if;		
-			end for;
+                	end if;		
+		end for;
 
-
-    g := GCD(Bfnews);
-			if g ne 0 then
-                print(PrimeFactors(g));
-			else
-				print "We have a zero";
-			end if;
-end for;
+		g := GCD(Bfnews);
+		if g ne 0 then
+                	print(PrimeFactors(g));
+		else
+			print "We have a zero";
+		end if;
+	end for;
 return 0;
 
 end function;
