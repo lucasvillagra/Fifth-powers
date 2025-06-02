@@ -67,7 +67,6 @@ function eliminate_newforms(k2 : Bound := 100, Newfs := [])
 				end for;
 
 				Append(~Bfnews,Integers()!prod);
-                    		g := GCD(Bfnews);
                     
                 	end if;		
 		end for;
