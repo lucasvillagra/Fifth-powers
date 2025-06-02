@@ -66,7 +66,6 @@ function eliminate_newforms(k2, k5, k7 : Bound := 100, Newfs := [])
 					prod *:= Norm((4*r^2 - aqfnew^2));
 				end for;
 				Append(~Bfnews,Integers()!prod);
-                    		g := GCD(Bfnews);
                      	end if;		
 		end for;
 
