@@ -25,7 +25,7 @@ end function;
 function eliminate_newforms(k2 : Bound := 100, Newfs := [])
 	/*
 	INPUT:
-		- ``kq`` : 1 or q
+		- ``k2`` : 1 or 2
 		- ``Bound`` : an upper bound of the primes we use in the elimination step
 		- ``Newfs`` : a list of new forms
 
@@ -41,7 +41,7 @@ function eliminate_newforms(k2 : Bound := 100, Newfs := [])
         	if k2 eq 1 then
            		Newfs := Hilbert_newforms(2^8 * 3 * 5 * 11 * 17);
         	elif k2 eq 2 then
-        	Newfs := Hilbert_newforms(3 * 5 * 11 * 17);
+        		Newfs := Hilbert_newforms(3 * 5 * 11 * 17);
         	end if;
 	end if; 
 
